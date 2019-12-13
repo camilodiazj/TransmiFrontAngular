@@ -1,0 +1,140 @@
+<div class="container p-3" style="width: 1100px">
+    <table class="table table-bordered table-sm table-secondary ">
+        <thead class="thead-dark">
+            <tr>
+                <th class="font-italic Italica text-center">Codigo Troncal</th>
+                <th class="font-italic Italica text-center">Codigo Estación</th>
+                <th class="font-italic Italica text-center">Nombre</th>
+                <th class="font-italic Italica text-center">Estado</th>
+                <th class="font-italic Italica text-center">Horario</th>
+                <th class="font-italic Italica text-center">Rutas</th>
+                <th class="font-italic Italica text-center">Opción...</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let estacion of estaciones">
+
+            <td class="text-center">{{estacion.codTroncal}}</td>
+            <td class="text-center">{{estacion.codEstacion}}</td>
+            <td class="text-center">{{estacion.nombre}}</td>
+            <td class="text-center">{{estacion.estado}}</td>
+            <td class="text-center">{{estacion.horaApertura}} - {{estacion.horaCierre}}</td>
+            <td>
+                <button type="button" data-toggle="modal" data-target="#exampleModal"
+                    (click)="imprimirRutas(estacion.codEstacion)" class="btn btn-sm btn-outline-dark btn-block"
+                    type="submit">Ver Rutas</button>
+            </td>
+            <td>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" 
+                            (click)="pregunta(estacion.codEstacion)" class="btn btn-sm btn-outline-danger btn-block"
+                            type="submit">Eliminar</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" data-toggle="modal" data-target="#modal2" (click)="setEstacion(estacion)"
+                            class="btn btn-sm btn-outline-primary btn-block" type="submit">Actualizar</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger font-italic Italica" id="exampleModalLabel">RUTAS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card" style="width: 28rem;">
+                    <div class="card-body" *ngFor="let ruta of rutas">
+                        <h5 class="card-title">{{ruta.codRuta}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ruta.nombre}}</h6>
+                        <p class="card-text">{{ruta.inicioOperacion}} - {{ruta.finOperacion}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-italic Italica text-danger" id="exampleModalLabel">Actualizar Estacion {{estacionRecibida.nombre}}</h5>
+                <button type="button" (click)="reload()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+
+                        <label for="exampleInputEmail1">Nombre</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre"
+                            [(ngModel)]="estacionRecibida.nombre" placeholder="Nombre" required>
+                        <small id="emailHelp" class="form-text text-muted">Nuevo nombre para la Estacion
+                            {{estacionRecibida.nombre}}.</small>
+                        <p></p>
+                        <label for="exampleInputEmail1">Estado</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label name=Estado class="input-group-text" for="inputGroupSelect01">Estado</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01"
+                                [(ngModel)]="estacionRecibida.estado" name="Estado">
+                                <option value="Abierta">Abierta</option>
+                                <option value="Cerrada">Cerrada</option>
+                                <option value="Bloqueada">Bloqueada</option>
+                            </select>
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted">Nuevo estado para la Estacion
+                            {{estacionRecibida.nombre}}.</small>
+                        <p></p>
+
+                        <label for="exampleInputEmail1">Troncal</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <label name=Troncal class="input-group-text" for="inputGroupSelect01">Troncal</label>
+                            </div>
+                            <select class="custom-select" id="inputGroupSelect01"
+                                [(ngModel)]="estacionRecibida.codTroncal" name="Estado">
+                                <option *ngFor="let troncal of troncales" [value]="troncal.codTroncal" selected="S">
+                                    {{troncal.codTroncal}}
+                                </option>
+                            </select>
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted">Nueva troncal para la Estacion
+                            {{estacionRecibida.nombre}}.</small>
+                            <p></p>
+                            <label for="exampleInputEmail1">Hora Apertura</label>
+                        <input type="text" class="form-control" name="lhoraApertura" id="horaApertura"
+                            [(ngModel)]="estacionRecibida.horaApertura" placeholder="Hora de Apertura (HH:mm:ss)" required>
+                            <small id="emailHelp" class="form-text text-muted">Nueva hora apertura para la Estacion
+                                {{estacionRecibida.nombre}}.</small>
+                                <p></p>
+                                <label for="exampleInputEmail1">Hora Cierre</label>
+                        <input type="text" class="form-control" name="horaCierre" id="horaCierre"
+                            [(ngModel)]="estacionRecibida.horaCierre" placeholder="Hora de Cierre (HH:mm:ss)" required>
+                            <small id="emailHelp" class="form-text text-muted">Nueva hora de cierre para la Estacion
+                                {{estacionRecibida.nombre}}.</small>
+                    </div>
+                    <button type="submit" (click)="pregunta2()" class="btn btn-danger">Actualizar</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

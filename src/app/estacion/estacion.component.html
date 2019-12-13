@@ -1,0 +1,45 @@
+<div class="container w-50 p-2">
+  <div class="row">
+    <div class="container rounded-lg" id="formContainer">
+
+      <form class="form-signin" id="login" role="form">
+        <h3 class="form-signin-heading font-italic Italica text-danger">Agregar Estación</h3>
+        <a href="#" id="flipToRecover" class="flipLink">
+          <div id="triangle-topright"></div>
+        </a>
+        <input type="input-group-text" class="form-control" name="codEstacion" id="codEstacion"
+          [(ngModel)]="estacion.setCodEstacion" placeholder="Codigo Estación" required>
+        <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="estacion.setNombre"
+          placeholder="Nombre" required>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label name=Estado class="input-group-text" for="inputGroupSelect01">Estado</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="estacion.setEstado" name="Estado">
+            <option value="Abierta">Abierta</option>
+            <option value="Cerrada">Cerrada</option>
+            <option value="Bloqueada">Bloqueada</option>
+          </select>
+
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label name=Troncal class="input-group-text" for="inputGroupSelect01">Troncal</label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="estacion.codTroncal" name="Estado">
+            <option *ngFor="let troncal of troncales" [value]="troncal.codTroncal" selected="S">{{troncal.codTroncal}}
+            </option>
+          </select>
+        </div>
+        <input type="text" class="form-control" name="lhoraApertura" id="horaApertura"
+          [(ngModel)]="estacion.setHoraApertura" placeholder="Hora de Apertura (HH:mm:ss)" required>
+        <input type="text" class="form-control" name="horaCierre" id="horaCierre" [(ngModel)]="estacion.setHoraCierre"
+          placeholder="Hora de Cierre (HH:mm:ss)" required>
+        <p></p>
+        <button (click)="send()" class="btn btn-lg btn-outline-danger btn-block p-1" type="submit">Agregar</button>
+
+      </form>
+
+    </div> <!-- /container -->
+  </div>
+</div>

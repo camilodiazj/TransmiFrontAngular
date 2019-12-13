@@ -1,0 +1,92 @@
+<div class="container p-2 w-50">
+    <table class="table table-bordered table-sm table-secondary ">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center font-italic Italica">Codigo Troncal</th>
+                <th class="text-center font-italic Italica">Nombre</th>
+                <th class="text-center font-italic Italica">Estaciones</th>
+                <th class="text-center font-italic Italica">(Opción)</th>
+            </tr>
+        </thead>
+        <tr *ngFor="let troncal of troncales">
+            <td class="text-center">{{troncal.codTroncal}}</td>
+            <td class="text-center">{{troncal.nombre}}</td>
+            <td>
+                <form name=formulario1 action="">
+                    <div class="col">
+                        <button type="button" data-toggle="modal" data-target="#exampleModal"
+                            (click)="imprimirEstaciones(troncal.codTroncal)"
+                            class="btn btn-sm btn-outline-dark btn-block" type="submit">Estaciones</button>
+                    </div>
+                </form>
+            </td>
+            <td> 
+                <div class="row">
+                    <div class="col">
+                        <button type="button" 
+                            (click)="pregunta(troncal.codTroncal)" class="btn btn-sm btn-outline-danger btn-block"
+                            type="submit">Eliminar</button>
+                    </div>
+                    <div class="col">
+                        <button type="button" data-toggle="modal" data-target="#modal2" (click)="setTroncal(troncal)"
+                            class="btn btn-sm btn-outline-primary btn-block" type="submit">Actualizar</button>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger font-italic Italica" id="exampleModalLabel">ESTACIONES</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card" style="width: 28rem;">
+                    <div class="card-body" *ngFor="let estacion of estaciones">
+                        <h5 class="card-title">{{estacion.codEstacion}}. {{estacion.nombre}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{estacion.estado}}</h6>
+                        <p class="card-text">{{estacion.horaApertura}} - {{estacion.horaCierre}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Actualizar Troncal {{troncalRecibida.nombre}}</h5>
+                <button type="button" (click)="reload()" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nuevo Nombre</label>
+                        <input type="text" #nombre="ngModel" class="form-control" name="nombre" id="nombre"
+          [(ngModel)]="troncalRecibida.nombre" placeholder="Nombre" required>
+                        <small id="emailHelp" class="form-text text-muted">Nuevo nombre para la Troncal {{troncalRecibida.nombre}}.</small>
+                    </div>
+                    <button type="submit" (click)="pregunta2()" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

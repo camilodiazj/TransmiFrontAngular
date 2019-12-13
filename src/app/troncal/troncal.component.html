@@ -1,0 +1,46 @@
+<div class="container w-50 p-2">
+  <div class="row">
+    <div class="container" id="formContainer">
+
+      <form action="" name="formulario" id="login" role="form">
+        <h3 class="form-signin-heading font-italic Italica text-danger">Agregar Troncal</h3>
+        <input type="text" class="form-control" name="codTroncal" id="codTroncal"
+          [(ngModel)]="troncal.codTroncal" maxlength="3" minlength="2" placeholder="Codigo Troncal" required>
+        <input type="text" #nombre="ngModel" class="form-control" name="nombre" id="nombre"
+          [(ngModel)]="troncal.nombre" placeholder="Nombre" required>
+        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+          <div *ngIf="nombre.errors?.required" style="color:#FF0000">
+            El campo es requerido
+          </div>
+        </div>
+        <p></p>
+        <button (click)="send()" class="btn btn-lg btn-outline-danger btn-block" id="btn" name="btn" type="submit">Agregar</button>
+        <div *ngIf="false" class="alert alert-success alert-dismissible fade show">
+          <button type="submit" class="close" data-dismiss="alert">&times;</button>
+          <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+      </form>
+<script>
+(function(){
+
+var formulario = document.getElementsByName('formulario')[0]; 
+    elementos = formulario.elements,
+    boton = document.getElementById('btn');
+
+    var validarNombre = function(){
+      if(formulario.nombre.value == 0){
+        alert("Completar el campo");
+      }
+    };
+
+    var validar = function(){
+      validarNombre();
+    }
+
+    formulario.addEventListener("submit",validar);
+}())
+
+</script>
+    </div> <!-- /container -->
+  </div>
+</div>
