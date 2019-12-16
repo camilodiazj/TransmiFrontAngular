@@ -25,7 +25,8 @@ export class RutaComponent implements OnInit {
       if (response.status == 201) {
         console.log(this.ruta);
         console.log(response.status);
-
+        alert("Ruta agregada");
+        location.reload();
       } else {
         console.log("Ruta ya existente");
         this.agregado = false;

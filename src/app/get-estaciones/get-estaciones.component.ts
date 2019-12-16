@@ -92,7 +92,7 @@ export class GetEstacionesComponent implements OnInit {
   }
 
   pregunta(codEstacion: string) {
-    if (confirm('¿Esta seguro de eliminar la estación ' + codEstacion + '? Esto eliminara todas las estaciones de esta Troncal.')) {
+    if (confirm('¿Esta seguro de eliminar la estación ' + codEstacion + '?')) {
       this.eliminarEstacion(codEstacion);
       location.reload();
       alert("La Estación ha sido eliminada!");

@@ -31,7 +31,7 @@ export class TroncalComponent implements OnInit {
         this.agregado = false;
       }
     }, error => {
-      console.log(this.agregado = false);
+      console.log("La troncal ya ha sido registrada anteriormente");
     }
     );
   }
